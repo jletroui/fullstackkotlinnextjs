@@ -1,0 +1,4 @@
+.frontend-gradle-plugin
+node_modules
+node
+build
