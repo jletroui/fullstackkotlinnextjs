@@ -6,6 +6,10 @@
 pluginManagement {
     // Include 'plugins build' to define convention plugins.
     includeBuild("build-logic")
+    plugins {
+        id("org.siouan.frontend-jdk21") version "8.1.0"
+        id("org.jetbrains.kotlin.jvm") version "2.0.0"
+    }
 }
 
 plugins {
