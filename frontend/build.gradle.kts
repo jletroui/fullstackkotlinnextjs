@@ -3,7 +3,6 @@ import kotlin.io.path.Path
 import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask
 
 plugins {
-    id("buildlogic.kotlin-common-conventions")
     id("org.siouan.frontend-jdk21")
 }
 
