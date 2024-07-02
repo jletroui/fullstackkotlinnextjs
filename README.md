@@ -21,3 +21,33 @@ Instructions TODO, but: must install git, Corretto 21 JDK, Docker Desktop (which
 ### On Linux
 
 Instructions TODO, but must install git, Corretto 21 JDK, Docker Desktop (which includes Docker Compose).
+
+## Common operations
+
+## Backend
+
+Start the Postgres dev database (requires Docker Desktop to be up):
+
+    .\gradlew.bat dbStart
+
+Stop the Postgres dev database:
+
+    .\gradlew.bat dbStop
+
+Open the Postgres console:
+
+    .\gradlew.bat dbConsole
+
+Test a new DB migration:
+
+    .\gradlew.bat flywayMigrate -i
+
+Run tests:
+
+    .\gradlew.bat :backend:test
+
+Run the backend (although you should start it in debug mode from your IDE):
+
+    .\gradlew.bat :backend:run
+
+## Frontend

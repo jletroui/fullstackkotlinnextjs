@@ -1,6 +1,13 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.kotlin.jvm") version "2.0.0"
+    id("org.flywaydb.flyway") version "10.+"
     application
+}
+
+buildscript {
+    dependencies {
+        classpath("org.flywaydb:flyway-database-postgresql:10.+")
+    }
 }
 
 java {
@@ -21,19 +28,18 @@ application {
 }
 
 dependencies {
-    constraints {
-        // Define dependency versions as constraints
-        implementation("org.apache.commons:commons-text:1.11.0")
-    }
-    implementation("org.apache.commons:commons-text")
+    implementation("org.flywaydb:flyway-database-postgresql:10.+")
+    runtimeOnly("org.postgresql:postgresql:42.+")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.+")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.10.2")
-        }
-    }
+tasks.named<Test>("test") {
+    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
+    useJUnitPlatform()
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost/backend_test?user=postgres&password=secret&ssl=false"
 }
