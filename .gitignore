@@ -5,3 +5,6 @@
 build
 
 .idea
+
+# Just in case we accidentally create a private key file somewhere
+*key.txt

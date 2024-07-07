@@ -3,7 +3,7 @@ import java.io.IOException
 task<Exec>("dbStart") {
     group = "Database"
     description ="Starts the backend database."
-    commandLine("docker-compose", "-f", "scripts/docker-compose.dev.yml", "up", "-d")
+    commandLine("docker-compose", "-f", "ops/docker-compose.dev.yml", "up", "-d")
 }
 
 task<Exec>("dbStop") {

@@ -1,17 +1,17 @@
 package org.example.app
 
-import java.sql.DriverManager
 import org.flywaydb.core.Flyway
+import java.sql.DriverManager
 
 fun main() {
+    val config = Config.loadFromStdInOrDev()
     Flyway
         .configure()
-        .dataSource("jdbc:postgresql://localhost/backend?ssl=false", "postgres", "secret")
+        .dataSource(config.postgresUrl, config.postgresAdminUser, config.postgresAdminPassword)
         .load()
         .migrate()
 
-    val url = "jdbc:postgresql://localhost/backend?user=postgres&password=secret&ssl=false"
-    DriverManager.getConnection(url).use { conn ->
+    DriverManager.getConnection(config.postgresUrl, config.postgresAppUser, config.postgresAppPassword).use { conn ->
         conn.createStatement().use { stmt ->
             stmt.executeQuery("SELECT COUNT(1) FROM tasks").use { rs ->
                 while (rs.next()) {
