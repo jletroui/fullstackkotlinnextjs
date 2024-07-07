@@ -101,6 +101,10 @@ Run tests:
 
     .\gradlew.bat :backend:test
 
+Lint:
+
+    .\gradlew.bat ktlintCheck
+
 Run the backend (although you should start it in debug mode from your IDE):
 
     .\gradlew.bat :backend:run
