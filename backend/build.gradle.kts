@@ -33,9 +33,15 @@ application {
 dependencies {
     implementation("org.flywaydb:flyway-database-postgresql:10.+")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.+")
+    implementation("io.vertx:vertx-web:4.+")
+    implementation("io.vertx:vertx-pg-client:4.+")
+    implementation("io.vertx:vertx-lang-kotlin:4.+")
     runtimeOnly("org.postgresql:postgresql:42.+")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.+")
+    testImplementation("io.vertx:vertx-junit5:4.+")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.+")
+    testImplementation("io.vertx:vertx-web-client:4.+")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -75,4 +81,8 @@ task<Exec>("encryptConfig") {
     outputs.dir(layout.projectDirectory.dir("secrets"))
     val volumesToMount = "\"${layout.projectDirectory.dir("secrets")}:/data\""
     commandLine("docker", "run", "--rm", "-v", volumesToMount, "shinkou/ejson", "encrypt", "/data/backend.production.ejson")
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    verbose.set(true)
 }

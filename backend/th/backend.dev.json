@@ -1,7 +1,0 @@
-{
-  "postgresUrl": "jdbc:postgresql://localhost/backend?ssl=false",
-  "postgresAdminUser": "postgres",
-  "postgresAdminPassword": "secret",
-  "postgresAppUser": "backend",
-  "postgresAppPassword": "backend"
-}

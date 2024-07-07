@@ -9,9 +9,9 @@ Supports:
 - dev database, database migrations (Postgres and Flyway)
 - performant web server (Vert.x)
 - configuration and secrets
+- backend linting
 
 TODO:
-- linting
 - frontend and backend CI
 - structured logging and monitoring
 - deployment

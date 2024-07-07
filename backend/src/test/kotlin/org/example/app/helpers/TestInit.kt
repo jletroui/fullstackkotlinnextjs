@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.helpers
 
 import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.extension.BeforeAllCallback

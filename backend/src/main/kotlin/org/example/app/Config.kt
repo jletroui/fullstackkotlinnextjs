@@ -10,7 +10,8 @@ import kotlin.io.path.Path
 
 @Serializable
 data class Config(
-    @Required @SerialName("_postgresUrl")       val postgresUrl: String,
+    @Required @SerialName("_postgresHost")      val postgresHost: String,
+    @Required @SerialName("_postgresDatabase")  val postgresDatabase: String,
     @Required @SerialName("_postgresAdminUser") val postgresAdminUser: String,
     @Required                                   val postgresAdminPassword: String,
     @Required @SerialName("_postgresAppUser")   val postgresAppUser: String,
@@ -26,10 +27,15 @@ data class Config(
                 return fromStream(System.`in`)
             }
             // We're in dev, so we simply load dev secrets, which are not encrypted
-            Path("backend", "secrets", "backend.dev.json").toFile().inputStream().use { stream ->
-                return fromStream(stream)
-            }
+            return loadFromJsonSecretFile("dev")
         }
+
+        fun loadTestConfig() = loadFromJsonSecretFile("test")
+
+        private fun loadFromJsonSecretFile(name: String) =
+            Path("secrets", "backend.$name.json").toFile().inputStream().use { stream ->
+                fromStream(stream)
+            }
 
         @OptIn(ExperimentalSerializationApi::class)
         fun fromStream(stream: InputStream): Config = Json.decodeFromStream(stream)
