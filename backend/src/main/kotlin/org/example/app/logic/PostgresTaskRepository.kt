@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.logic
 
 import io.vertx.core.Future
 import io.vertx.sqlclient.SqlClient
@@ -11,7 +11,7 @@ interface TaskRepository {
     fun createTask(description: String): Future<Unit>
 }
 
-class DefaultTaskRepository(private val sqlClient: SqlClient) : TaskRepository {
+class PostgresTaskRepository(private val sqlClient: SqlClient) : TaskRepository {
     override fun taskCount(): Future<Int> =
         sqlClient
             .query("SELECT COUNT(1) FROM tasks")

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+  <import class="ch.qos.logback.classic.encoder.JsonEncoder"/>
+  <import class="ch.qos.logback.core.ConsoleAppender"/>
+
+  <appender name="STDOUT" class="ConsoleAppender">
+    <!-- If more flexibility is needed, move to the JSON pattern encoder:
+          https://github.com/logfellow/logstash-logback-encoder/tree/logstash-logback-encoder-7.4?tab=readme-ov-file#pattern-json-provider
+     -->
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

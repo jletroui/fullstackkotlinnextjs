@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.config
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Required
 import kotlinx.serialization.SerialName
@@ -9,6 +9,7 @@ import java.io.InputStream
 import kotlin.io.path.Path
 
 @Serializable
+@Suppress("ktlint:standard:modifier-list-spacing", "ktlint:standard:parameter-list-spacing", "ktlint:standard:no-multi-spaces")
 data class Config(
     @Required @SerialName("_postgresHost")      val postgresHost: String,
     @Required @SerialName("_postgresDatabase")  val postgresDatabase: String,

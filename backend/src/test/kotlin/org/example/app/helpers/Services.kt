@@ -3,8 +3,8 @@ package org.example.app.helpers
 import io.vertx.core.Future
 import io.vertx.core.Vertx
 import io.vertx.sqlclient.SqlClient
-import org.example.app.Config
-import org.example.app.DatabaseClientBuilder
+import org.example.app.config.Config
+import org.example.app.config.DatabaseClientBuilder
 
 class Services {
     companion object {

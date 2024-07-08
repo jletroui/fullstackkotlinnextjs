@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.config
 
 import io.vertx.core.Vertx
 import io.vertx.pgclient.PgBuilder

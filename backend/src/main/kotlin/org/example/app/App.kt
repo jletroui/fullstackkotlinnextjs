@@ -1,6 +1,11 @@
 package org.example.app
 
 import io.vertx.core.Vertx
+import org.example.app.config.Config
+import org.example.app.config.DatabaseClientBuilder
+import org.example.app.config.RouterBuilder
+import org.example.app.logic.PostgresTaskRepository
+import org.example.app.web.TaskRoutes
 
 fun main() {
     val config = Config.loadFromStdInOrDev()
@@ -11,12 +16,15 @@ fun main() {
     val vertx = Vertx.vertx()
 
     val sqlClient = DatabaseClientBuilder.createSqlClient(config, vertx)
-    val taskRepository = DefaultTaskRepository(sqlClient)
+    val taskRepository = PostgresTaskRepository(sqlClient)
     // Add some other repositories here
 
     val router = RouterBuilder.router(vertx)
-    TaskController.installRoutes(router, taskRepository)
+    TaskRoutes.install(router, taskRepository)
     // Add some other controllers here
 
-    vertx.createHttpServer().requestHandler(router).listen(8080)
+    vertx
+        .createHttpServer()
+        .requestHandler(router)
+        .listen(8080)
 }

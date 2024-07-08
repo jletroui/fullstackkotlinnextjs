@@ -4,7 +4,7 @@ import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
-class TestInit : BeforeAllCallback {
+class TestInitialization : BeforeAllCallback {
     override fun beforeAll(context: ExtensionContext) {
         context
             .root

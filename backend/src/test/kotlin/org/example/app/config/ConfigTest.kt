@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.config
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

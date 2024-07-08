@@ -31,13 +31,20 @@ application {
 }
 
 dependencies {
+    // Db migrations
     implementation("org.flywaydb:flyway-database-postgresql:10.+")
+    runtimeOnly("org.postgresql:postgresql:42.+")
+    // Config deserialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.+")
+    // HTTP API
     implementation("io.vertx:vertx-web:4.+")
     implementation("io.vertx:vertx-pg-client:4.+")
     implementation("io.vertx:vertx-lang-kotlin:4.+")
-    runtimeOnly("org.postgresql:postgresql:42.+")
+    // Logging
+    implementation("ch.qos.logback:logback-classic:1.5.+")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.+")
 
+    // Tests
     testImplementation("org.junit.jupiter:junit-jupiter:5.+")
     testImplementation("io.vertx:vertx-junit5:4.+")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.+")

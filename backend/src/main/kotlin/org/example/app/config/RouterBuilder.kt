@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.config
 
 import io.vertx.core.Vertx
 import io.vertx.ext.web.Router
@@ -10,11 +10,9 @@ class RouterBuilder {
     companion object {
         fun router(vertx: Vertx): Router {
             val router = Router.router(vertx)
-            // Seems JSON is already the default for simple routes
-//            router
-//                .route()
-//                .produces("application/json")
-//                .handler(ResponseContentTypeHandler.create())
+            router
+                .route()
+                .handler(StructuredAccessLogHandler())
             return router
         }
     }

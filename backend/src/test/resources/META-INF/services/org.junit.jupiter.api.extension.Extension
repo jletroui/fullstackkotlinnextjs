@@ -1,2 +1,2 @@
-org.example.app.helpers.TestInit
+org.example.app.helpers.TestInitialization
 io.vertx.junit5.VertxExtension

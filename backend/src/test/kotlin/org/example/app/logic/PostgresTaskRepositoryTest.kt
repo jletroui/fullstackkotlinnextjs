@@ -1,4 +1,4 @@
-package org.example.app
+package org.example.app.logic
 
 import io.vertx.core.Future
 import io.vertx.core.Vertx
@@ -10,17 +10,19 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(VertxExtension::class)
-class DefaultTaskRepositoryTest {
+class PostgresTaskRepositoryTest {
     @Test
     fun whenNoTaskAndTaskCountThenReturn0(
         vertx: Vertx,
         ctx: VertxTestContext,
     ) {
         usingRepo(vertx) { sut ->
-            sut.taskCount().onComplete(ctx.succeeding { count ->
-                assertEquals(0, count)
-                ctx.completeNow()
-            })
+            sut.taskCount().onComplete(
+                ctx.succeeding { count ->
+                    assertEquals(0, count)
+                    ctx.completeNow()
+                },
+            )
         }
     }
 
@@ -38,23 +40,27 @@ class DefaultTaskRepositoryTest {
                 .compose {
                     sut.taskCount()
                 }
-                .onComplete(ctx.succeeding { count ->
-                    assertEquals(2, count)
-                    ctx.completeNow()
-                })
+                .onComplete(
+                    ctx.succeeding { count ->
+                        assertEquals(2, count)
+                        ctx.completeNow()
+                    },
+                )
         }
     }
 
     companion object {
-        fun <T> usingRepo(vertx: Vertx, f: (DefaultTaskRepository) -> Future<T>) =
-            Services.withSqlClient(vertx) { client ->
-                client
-                    .query("TRUNCATE tasks")
-                    .execute()
-                    .compose {
-                        val sut = DefaultTaskRepository(client)
-                        f.invoke(sut)
-                    }
-            }
+        fun <T> usingRepo(
+            vertx: Vertx,
+            f: (PostgresTaskRepository) -> Future<T>,
+        ) = Services.withSqlClient(vertx) { client ->
+            client
+                .query("TRUNCATE tasks")
+                .execute()
+                .compose {
+                    val sut = PostgresTaskRepository(client)
+                    f.invoke(sut)
+                }
+        }
     }
 }

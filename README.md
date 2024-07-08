@@ -10,10 +10,12 @@ Supports:
 - performant web server (Vert.x)
 - configuration and secrets
 - backend linting
+- structured logging
 
 TODO:
+- frontend linting
 - frontend and backend CI
-- structured logging and monitoring
+- monitoring
 - deployment
 
 ## Reasoning behind the tech choices
