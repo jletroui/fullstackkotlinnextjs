@@ -1,4 +1,13 @@
 .frontend-gradle-plugin
+# dependencies
 node_modules
 node
 build
+
+# next.js
+.next/
+out/
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

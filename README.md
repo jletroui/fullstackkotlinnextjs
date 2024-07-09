@@ -117,4 +117,14 @@ Encrypt configuration secrets:
 
 ## Frontend
 
+Run dev server:
 
+    .\gradlew.bat :frontend:run
+
+Run tests:
+
+    .\gradlew.bat :frontend:test
+
+Lint:
+
+    .\gradlew.bat :frontend:lint

@@ -1,6 +1,7 @@
 import java.nio.file.Files
 import kotlin.io.path.Path
 import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask
+import org.siouan.frontendgradleplugin.infrastructure.gradle.RunNpm
 
 plugins {
     id("org.siouan.frontend-jdk21") version "8.1.0"
@@ -15,6 +16,9 @@ frontend {
 }
 
 tasks.named<InstallFrontendTask>("installFrontend") {
+    group = "Frontend"
+    description ="Installs frontend package"
+    dependsOn(tasks.named("installPackageManager"))
     val ciPlatformPresent = providers.environmentVariable("CI").isPresent()
     val lockFilePath = "${projectDir}/package-lock.json"
     val retainedMetadataFileNames: Set<String>
@@ -39,4 +43,28 @@ tasks.named<InstallFrontendTask>("installFrontend") {
     }
     inputs.files(retainedMetadataFileNames).withPropertyName("metadataFiles")
     outputs.dir("${projectDir}/node_modules").withPropertyName("nodeModulesDirectory")
+}
+
+tasks.register<RunNpm>("run") {
+    group = "Frontend"
+    description ="Runs the frontend in dev mode"
+    dependsOn(tasks.named("installPackageManager"))
+    dependsOn(tasks.named("installFrontend"))
+    script = "run run"
+}
+
+tasks.register<RunNpm>("test") {
+    group = "Frontend"
+    description ="Runs the frontend tests"
+    dependsOn(tasks.named("installPackageManager"))
+    dependsOn(tasks.named("installFrontend"))
+    script = "run test"
+}
+
+tasks.register<RunNpm>("lint") {
+    group = "Frontend"
+    description ="Runs the frontend linter"
+    dependsOn(tasks.named("installPackageManager"))
+    dependsOn(tasks.named("installFrontend"))
+    script = "run lint"
 }
