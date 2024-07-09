@@ -125,6 +125,10 @@ Run tests:
 
     .\gradlew.bat :frontend:test
 
+or (for colored output):
+
+    pushd frontend; npm run test; popd 
+
 Lint:
 
     .\gradlew.bat :frontend:lint
