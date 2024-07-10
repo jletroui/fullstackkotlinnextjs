@@ -1,13 +1,20 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import { useTaskCount } from '../app/lib/queries'
 import Page from '../app/page'
 
+jest.mock('../app/lib/queries', () => ({
+  useTaskCount: jest.fn()
+}))
+
 describe('Page', () => {
-  it('renders a heading', () => {
+  it('renders a heading', async () => {
+    (useTaskCount as any).mockReturnValue({data: 3, error: null, isLoading: false})
+
     render(<Page />)
 
-    const heading = screen.getByRole('heading', { level: 1 })
-
-    expect(heading).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByRole('heading', {level: 2})).toHaveTextContent('Task count: 3')
+    })
   })
 })

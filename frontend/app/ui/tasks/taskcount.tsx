@@ -1,6 +1,9 @@
-import { fetchTaskCount } from '../../lib/queries';
+import { useTaskCount } from '../../lib/queries';
 
-export default async function TaskCount() {
-    const count = await fetchTaskCount()
-    return <span>{count}</span>
+export default function TaskCount() {
+    const { data, error, isLoading } = useTaskCount()
+
+    if (isLoading) return <span>Loading...</span>
+    if (error) return <span>Failed to load!</span>
+    return <span>{data}</span>
 }
