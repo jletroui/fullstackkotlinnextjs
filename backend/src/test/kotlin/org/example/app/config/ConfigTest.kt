@@ -9,6 +9,7 @@ class ConfigTest {
         val sampleConfig =
             """
                 {
+                    "_port": 1234,
                     "_postgresHost": "localhost",
                     "_postgresDatabase": "backend",
                     "_postgresAdminUser": "postgres",
@@ -20,6 +21,7 @@ class ConfigTest {
 
         val expectedConfig =
             Config(
+                1234,
                 "localhost",
                 "backend",
                 "postgres",

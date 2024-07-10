@@ -11,6 +11,7 @@ import kotlin.io.path.Path
 @Serializable
 @Suppress("ktlint:standard:modifier-list-spacing", "ktlint:standard:parameter-list-spacing", "ktlint:standard:no-multi-spaces")
 data class Config(
+    @Required @SerialName("_port")              val port: Int,
     @Required @SerialName("_postgresHost")      val postgresHost: String,
     @Required @SerialName("_postgresDatabase")  val postgresDatabase: String,
     @Required @SerialName("_postgresAdminUser") val postgresAdminUser: String,
@@ -34,7 +35,7 @@ data class Config(
         fun loadTestConfig() = loadFromJsonSecretFile("test")
 
         private fun loadFromJsonSecretFile(name: String) =
-            Path("secrets", "backend.$name.json").toFile().inputStream().use { stream ->
+            Path("backend","secrets", "backend.$name.json").toFile().inputStream().use { stream ->
                 fromStream(stream)
             }
 

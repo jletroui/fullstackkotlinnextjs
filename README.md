@@ -95,6 +95,10 @@ Open the Postgres console:
 
     .\gradlew.bat dbConsole
 
+Start the backend:
+
+In your IDE, starts the org.example.app.App main class. 
+
 Test a new DB migration:
 
     .\gradlew.bat flywayMigrate -i

@@ -4,7 +4,7 @@ import io.vertx.core.Future
 import io.vertx.core.Vertx
 import io.vertx.sqlclient.SqlClient
 import org.example.app.config.Config
-import org.example.app.config.DatabaseClientBuilder
+import org.example.app.config.Database
 
 class Services {
     companion object {
@@ -14,7 +14,7 @@ class Services {
             vertx: Vertx,
             f: (SqlClient) -> Future<T>,
         ): Future<T> {
-            val client = DatabaseClientBuilder.createSqlClient(config, vertx)
+            val client = Database.createSqlClient(config, vertx)
             return f.invoke(client).map { item ->
                 client.close()
                 item

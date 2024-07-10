@@ -7,7 +7,7 @@ import io.vertx.sqlclient.PoolOptions
 import io.vertx.sqlclient.SqlClient
 import org.flywaydb.core.Flyway
 
-class DatabaseClientBuilder {
+class Database {
     companion object {
         private fun jdbcUrl(config: Config) = "jdbc:postgresql://${config.postgresHost}/${config.postgresDatabase}?ssl=false"
 

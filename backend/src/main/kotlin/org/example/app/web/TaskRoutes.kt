@@ -12,7 +12,7 @@ class TaskRoutes {
             taskRepository: TaskRepository,
         ) {
             router
-                .get("/tasks/count")
+                .get("/api/tasks/count")
                 .respond {
                     taskRepository.taskCount().map { count ->
                         json { obj("count" to count) }
