@@ -35,7 +35,7 @@ data class Config(
         fun loadTestConfig() = loadFromJsonSecretFile("test")
 
         private fun loadFromJsonSecretFile(name: String) =
-            Path("backend","secrets", "backend.$name.json").toFile().inputStream().use { stream ->
+            Path("secrets", "backend.$name.json").toFile().inputStream().use { stream ->
                 fromStream(stream)
             }
 

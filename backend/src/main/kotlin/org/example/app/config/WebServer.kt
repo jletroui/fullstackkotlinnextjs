@@ -8,7 +8,11 @@ class WebServer {
     companion object {
         private val logger = LoggerFactory.getLogger(WebServer::class.java)
 
-        fun start(config: Config, vertx: Vertx, installRoutes: (Router) -> Unit) {
+        fun start(
+            config: Config,
+            vertx: Vertx,
+            installRoutes: (Router) -> Unit,
+        ) {
             val router = Router.router(vertx)
 
             // Configure Middleware

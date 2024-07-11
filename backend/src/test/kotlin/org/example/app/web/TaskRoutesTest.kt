@@ -26,7 +26,7 @@ class TaskRoutesTest {
         whenever(taskRepository.taskCount()).thenReturn(Future.succeededFuture(2))
 
         TestClient
-            .get(vertx, "/tasks/count")
+            .get(vertx, "/api/tasks/count")
             .onComplete(
                 ctx.succeeding { resp ->
                     assertEquals(200, resp.statusCode())

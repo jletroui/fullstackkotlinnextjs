@@ -9,22 +9,24 @@ Supports:
 - dev database, database migrations (Postgres and Flyway)
 - performant web server (Vert.x)
 - configuration and secrets
-- backend linting
-- frontend linting
+- backend and frontend linting
+- backend and frontend unit tests for the example data access layer, controller, and page
 - structured logging
 
 TODO:
 - frontend and backend CI
-- monitoring
 - deployment
+
+Not covered:
+- monitoring (other than logging)
 
 ## Reasoning behind the tech choices
 
 ### Backend and frontend languages
 
-You start a project once, and you maintain it again and again. Thus, maintainability is the main driver.
+You start a project once, and you maintain it again and again. Thus, maintainability has been, for me, the main driver of team success.
 By maintainable, I take the definition of 'all modifications of comparable complexity do not consume more dev time over the lifetime of the project'.
-Therefore, it needs to be easy to navigate and understands the code. This favors statically typed languages, for which IDE have a lot better navigability.
+Therefore, it needs to be easy to navigate and understands the code. This favors statically typed languages, for which IDE have a lot better navigability, and compiler are helping a lots more.
 Ideally, it is also quick to develop. Which means, a language that is preventing technical bugs, like memory issues or null values.
 On this scale alone, languages like Haskell or Rust are clearly well-placed. Except, to be maintainable, you also need to find developers.
 Most used languages today are Python and Javascript, but they are too far on the 'expensive to maintain' scale.

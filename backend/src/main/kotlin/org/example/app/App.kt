@@ -30,8 +30,7 @@ fun main() {
         Thread {
             try {
                 logger.atInfo().log("Exiting...")
-            }
-            finally {
+            } finally {
                 // TODO: actually wait the future to stop before exiting this thread.
                 vertx.close()
             }

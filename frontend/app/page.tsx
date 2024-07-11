@@ -1,3 +1,5 @@
+'use client';
+
 import TaskCount from './ui/tasks/taskcount';
 
 export default function Page() {
