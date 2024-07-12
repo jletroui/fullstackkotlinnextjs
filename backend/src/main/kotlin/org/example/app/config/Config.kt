@@ -12,13 +12,14 @@ import kotlin.io.path.Path
 @Serializable
 @Suppress("ktlint:standard:modifier-list-spacing", "ktlint:standard:parameter-list-spacing", "ktlint:standard:no-multi-spaces")
 data class Config(
-    @Required @SerialName("_port")              val port: Int,
-    @Required @SerialName("_postgresHost")      val postgresHost: String,
-    @Required @SerialName("_postgresDatabase")  val postgresDatabase: String,
-    @Required @SerialName("_postgresAdminUser") val postgresAdminUser: String,
-    @Required                                   val postgresAdminPassword: String,
-    @Required @SerialName("_postgresAppUser")   val postgresAppUser: String,
-    @Required                                   val postgresAppPassword: String,
+    @Required @SerialName("_port")                  val port: Int,
+    @Required @SerialName("_postgresWaitTimeoutMs") val postgresWaitTimeoutMs: Int,
+    @Required @SerialName("_postgresHost")          val postgresHost: String,
+    @Required @SerialName("_postgresDatabase")      val postgresDatabase: String,
+    @Required @SerialName("_postgresAdminUser")     val postgresAdminUser: String,
+    @Required                                       val postgresAdminPassword: String,
+    @Required @SerialName("_postgresAppUser")       val postgresAppUser: String,
+    @Required                                       val postgresAppPassword: String,
 ) {
     companion object {
         private val encryptedEnvs = setOf("production", "staging")

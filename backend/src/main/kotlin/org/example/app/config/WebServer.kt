@@ -2,6 +2,7 @@ package org.example.app.config
 
 import io.vertx.core.Vertx
 import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.StaticHandler
 import org.slf4j.LoggerFactory
 
 class WebServer {
@@ -22,6 +23,12 @@ class WebServer {
 
             // Configure API routes
             installRoutes(router)
+
+            // If no route caught the request, serve static files.
+            // By default, StaticHandler is enabling caching on prod, and consider files read-only.
+            router
+                .getWithRegex("/.*")
+                .handler(StaticHandler.create("www"))
 
             // Launch actual server
             vertx

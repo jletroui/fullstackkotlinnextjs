@@ -10,6 +10,7 @@ class ConfigTest {
             """
                 {
                     "_port": 1234,
+                    "_postgresWaitTimeoutMs": 100,
                     "_postgresHost": "localhost",
                     "_postgresDatabase": "backend",
                     "_postgresAdminUser": "postgres",
@@ -23,6 +24,7 @@ class ConfigTest {
         val expectedConfig =
             Config(
                 1234,
+                100,
                 "localhost",
                 "backend",
                 "postgres",
