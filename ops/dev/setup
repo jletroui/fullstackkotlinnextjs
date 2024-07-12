@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# ejson has no other installation method, apart from a docker image which is not suitable
+
+downloadForLinux() {
+  echo "Downloading ejson for linux"
+  curl -L -o ejson.tar.gz "https://github.com/Shopify/ejson/releases/download/v1.5.2/ejson_1.5.2_linux_amd64.tar.gz"
+}
+
+downloadForMac() {
+  echo "Downloading ejson for Mac"
+  curl -L -o ejson.tar.gz "https://github.com/Shopify/ejson/releases/download/v1.5.2/ejson_1.5.2_darwin_amd64.tar.gz"
+}
+
+downloadForWindows() {
+  echo "Downloading ejson for Windows"
+  curl -L -o ejson.tar.gz "https://github.com/Shopify/ejson/releases/download/v1.5.2/ejson_1.5.2_windows_amd64.tar.gz"
+}
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     downloadForLinux;;
+    Darwin*)    downloadForMac;;
+    CYGWIN*)    downloadForWindows;;
+    MINGW*)     downloadForWindows;;
+    *)          echo "Can't understand what type of machine this is."; exit 1
+esac
+
+mkdir -p ops/tools
+tar -xvf ejson.tar.gz -C ops/tools
+rm ejson.tar.gz
+echo "Installed dev tools successfully."

@@ -1,6 +1,7 @@
 {
   "_port": 8080,
   "_postgresHost": "localhost",
+  "_postgresPort": 5432,
   "_postgresDatabase": "backend",
   "_postgresAdminUser": "postgres",
   "postgresAdminPassword": "secret",

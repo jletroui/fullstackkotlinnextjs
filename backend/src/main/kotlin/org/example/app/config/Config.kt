@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.slf4j.LoggerFactory
 import java.io.InputStream
 import kotlin.io.path.Path
 
@@ -21,11 +22,17 @@ data class Config(
 ) {
     companion object {
         private val encryptedEnvs = setOf("production", "staging")
+        private val logger = LoggerFactory.getLogger(Config::class.java)
+        private val jsonParser = Json { ignoreUnknownKeys = true }
 
         fun loadFromStdInOrDev(): Config {
-            if (encryptedEnvs.contains(System.getenv("ENV"))) {
+            val env = System.getenv("ENV")
+            logger.atInfo().log("Detected environment: {}", env)
+
+            if (encryptedEnvs.contains(env)) {
                 // We're in prod or staging, docker entrypoint must decrypt secret file and pass it through StdIn.
                 // Note: this is important so decrypted secrets leave no trace in env variables or on the file system.
+                logger.atInfo().log("Reading config from standard input")
                 return fromStream(System.`in`)
             }
             // We're in dev, so we simply load dev secrets, which are not encrypted
@@ -35,11 +42,11 @@ data class Config(
         fun loadTestConfig() = loadFromJsonSecretFile("test")
 
         private fun loadFromJsonSecretFile(name: String) =
-            Path("secrets", "backend.$name.json").toFile().inputStream().use { stream ->
+            Path("config", "backend.$name.json").toFile().inputStream().use { stream ->
                 fromStream(stream)
             }
 
         @OptIn(ExperimentalSerializationApi::class)
-        fun fromStream(stream: InputStream): Config = Json.decodeFromStream(stream)
+        fun fromStream(stream: InputStream): Config = jsonParser.decodeFromStream(stream)
     }
 }

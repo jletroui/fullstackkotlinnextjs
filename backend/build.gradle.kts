@@ -64,8 +64,7 @@ flyway {
 
 tasks.register<Copy>("installLocalGitHook") {
     // https://dev.to/akdevcraft/git-pre-hook-pre-commit-with-gradle-task-134m
-    from(layout.projectDirectory.dir("../ops/git/hooks"))
-    include("*")
+    from(layout.projectDirectory.file("../ops/git/hooks/pre-commit"))
     into(layout.projectDirectory.dir("../.git/hooks"))
     filePermissions {
         user {
@@ -74,9 +73,11 @@ tasks.register<Copy>("installLocalGitHook") {
         }
         other.execute = false
     }
+    dependsOn(rootProject.tasks.named("setupDev")) // For installing ejson
 }
 
 tasks.compileKotlin {
+    // Decrease the risk of leaking secrets on commit
     dependsOn("installLocalGitHook")
 }
 
@@ -84,12 +85,12 @@ task<Exec>("encryptConfig") {
     // https://github.com/Shopify/ejson
     group = "Operations"
     description = "Encrypts secrets."
-    inputs.dir(layout.projectDirectory.dir("secrets"))
-    outputs.dir(layout.projectDirectory.dir("secrets"))
-    val volumesToMount = "\"${layout.projectDirectory.dir("secrets")}:/data\""
-    commandLine("docker", "run", "--rm", "-v", volumesToMount, "shinkou/ejson", "encrypt", "/data/backend.production.ejson")
+    inputs.dir(layout.projectDirectory.dir("config").files("backend.production.ejson"))
+    inputs.dir(layout.projectDirectory.dir("config").files("backend.production.ejson"))
+    commandLine("../ops/tools/ejson", "encrypt", "config/backend.production.ejson")
+    dependsOn(rootProject.tasks.named("setupDev")) // For installing ejson
 }
 
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-    verbose.set(true)
+    verbose = true
 }

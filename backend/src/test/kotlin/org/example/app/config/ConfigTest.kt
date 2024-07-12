@@ -15,7 +15,8 @@ class ConfigTest {
                     "_postgresAdminUser": "postgres",
                     "postgresAdminPassword": "secret",
                     "_postgresAppUser": "backend",
-                    "postgresAppPassword": "backend"
+                    "postgresAppPassword": "backend",
+                    "unknownKey": "shouldBeIgnored"
                 }
             """
 

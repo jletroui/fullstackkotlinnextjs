@@ -9,8 +9,8 @@ import org.example.app.web.TaskRoutes
 import org.slf4j.LoggerFactory
 
 fun main() {
-    val config = Config.loadFromStdInOrDev()
     val logger = LoggerFactory.getLogger("main")
+    val config = Config.loadFromStdInOrDev()
     Database
         .createFlyway(config)
         .migrate()
