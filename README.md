@@ -13,12 +13,12 @@ Supports:
 - backend and frontend unit tests for the example data access layer, controller, and page
 - structured logging
 - deployment (production simulated locally)
-
-TODO:
 - frontend and backend CI
 
 Not covered:
 - monitoring (other than logging)
+- authentication
+- SSL termination
 
 ## Reasoning behind the tech choices
 
@@ -83,7 +83,7 @@ Instructions TODO, but must install git, Corretto 21 JDK, Docker Desktop (which 
 
 ## Common operations
 
-## Backend
+### Backend
 
 Start the Postgres dev database (requires Docker Desktop to be up):
 
@@ -121,7 +121,7 @@ Encrypt configuration secrets:
 
     .\gradlew.bat :encryptConfig
 
-## Frontend
+### Frontend
 
 Run dev server:
 
@@ -138,3 +138,13 @@ or (for colored output):
 Lint:
 
     .\gradlew.bat :frontend:lint
+
+## Operations
+
+CI:
+
+    ops/run_ci.sh
+
+Deployment:
+
+    ops/simulate_prod_deployment.sh

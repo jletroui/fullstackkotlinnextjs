@@ -40,7 +40,13 @@ data class Config(
             return loadFromJsonSecretFile("dev")
         }
 
-        fun loadTestConfig() = loadFromJsonSecretFile("test")
+        fun loadTestConfig(): Config {
+            val env = System.getenv("ENV")
+            val configEnv = env ?: "test"
+            logger.atInfo().log("Detected test environment: {}. Will apply {} config.", env, configEnv)
+
+            return loadFromJsonSecretFile(configEnv)
+        }
 
         private fun loadFromJsonSecretFile(name: String) =
             Path("config", "backend.$name.json").toFile().inputStream().use { stream ->

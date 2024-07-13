@@ -1,0 +1,23 @@
+# Services necessary for local dev
+
+services:
+  ci_svc:
+    depends_on:
+      - postgres_svc
+    image: gradle:8.8-jdk21
+    environment:
+      - ENV=ci
+    working_dir: /app
+    volumes:
+      - ../:/app
+    # The image already has the right version, so not using the gradle wrapper to avoid a useless install
+    command: gradle check
+    #command: gradle --info check
+
+  postgres_svc:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    volumes:
+      - ./db-init:/docker-entrypoint-initdb.d

@@ -19,7 +19,7 @@ tasks.named<InstallFrontendTask>("installFrontend") {
     group = "Frontend"
     description ="Installs frontend package"
     dependsOn(tasks.named("installPackageManager"))
-    val ciPlatformPresent = providers.environmentVariable("CI").isPresent()
+    val ciPlatformPresent = providers.environmentVariable("ENV").orNull == "ci"
     val lockFilePath = "${projectDir}/package-lock.json"
     val retainedMetadataFileNames: Set<String>
     if (ciPlatformPresent) {

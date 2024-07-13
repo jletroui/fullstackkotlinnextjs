@@ -34,4 +34,9 @@ class ConfigTest {
             )
         assertEquals(expectedConfig, Config.fromStream(sampleConfig.byteInputStream()))
     }
+
+    @Test
+    fun testTest() {
+        assertEquals("abcd", "abcd")
+    }
 }

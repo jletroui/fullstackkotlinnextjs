@@ -15,13 +15,18 @@ class Database {
         private const val WAIT_TIME_MS = 100L
         private val logger = LoggerFactory.getLogger(Database::class.java)
 
-        private fun jdbcUrl(config: Config) = "jdbc:postgresql://${config.postgresHost}/${config.postgresDatabase}?ssl=false"
+        private fun jdbcUrl(config: Config): String {
+            return "jdbc:postgresql://${config.postgresHost}/${config.postgresDatabase}?ssl=false"
+        }
 
         private fun waitDbReady(config: Config) {
             if (isDbReady(config)) {
                 return
             }
-            logger.atInfo().log("Postgres server at ${config.postgresHost} is not responding. Waiting for {} ms.", config.postgresWaitTimeoutMs)
+            logger.atInfo().log(
+                "Postgres server at ${config.postgresHost} is not responding. Waiting for {} ms.",
+                config.postgresWaitTimeoutMs,
+            )
 
             var tries = config.postgresWaitTimeoutMs / WAIT_TIME_MS
             while (!isDbReady(config) && tries > 0) {
@@ -39,10 +44,9 @@ class Database {
                 Socket(config.postgresHost, 5432).use {
                     true
                 }
-            } catch (_: IOException){
+            } catch (_: IOException) {
                 false
             }
-
 
         fun createFlyway(config: Config): Flyway {
             waitDbReady(config)
